@@ -19,7 +19,6 @@ function Crud () {
   const [ig, setIg] = useState('')
   const [li, setLi] = useState('')
   const [image, setImage] = useState('')
-  const [url, setUrl] = useState('')
 
   const handleChange = e => {
     if (e.target.files[0]) {
@@ -28,20 +27,9 @@ function Crud () {
   }
 
   const handleAddUser = () => {
-    const firestore = firebase.database().ref('/UserInfo')
     const storage = firebase.storage()
-    let data = {
-      FirstName: firstName,
-      LastName: lastName,
-      Email: email,
-      Description: description,
-      Youtube: yt,
-      Instagram: ig,
-      LinkedIn: li,
-      Cover: url
-    }
 
-    if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data['Email'])) {
+    if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       const uploadTask = storage.ref(`images/${image.name}`).put(image)
       uploadTask.on(
 				'state_changed',
@@ -51,12 +39,19 @@ function Crud () {
 },
 				() => {
   storage.ref('images').child(image.name).getDownloadURL().then(url => {
-						// console.log(url)
-    setUrl(url)
+    firebase.firestore().collection('UserInfo').add({
+      FirstName: firstName,
+      LastName: lastName,
+      Email: email,
+      Description: description,
+      Youtube: yt,
+      Instagram: ig,
+      LinkedIn: li,
+      Cover: url
+    })
   })
 }
 			)
-      firestore.push(data)
     }
   }
 
