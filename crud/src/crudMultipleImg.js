@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import Card from './components/Card'
 import firebase from './firebase'
 import {
 	Button,
@@ -10,10 +11,13 @@ import {
 	Segment
 } from 'semantic-ui-react'
 
+let previewImage = ''
+let previewSecondImage = ''
+
 function Crud () {
   const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
+  const [position, setPosition] = useState('')
   const [description, setDescription] = useState('')
   const [yt, setYt] = useState('')
   const [ig, setIg] = useState('')
@@ -24,12 +28,14 @@ function Crud () {
   const handleChange = e => {
     if (e.target.files[0]) {
       setImage(e.target.files[0])
+      previewImage = URL.createObjectURL(e.target.files[0])
     }
   }
 
   const handleChange1 = e => {
     if (e.target.files[0]) {
       setSecondImage(e.target.files[0])
+      previewSecondImage = URL.createObjectURL(e.target.files[0])
     }
   }
 
@@ -55,8 +61,8 @@ function Crud () {
 						.then(url => {
   firebase.firestore().collection('UserInfo').add({
     FirstName: firstName,
-    LastName: lastName,
     Email: email,
+    Position: position,
     Description: description,
     Youtube: yt,
     Instagram: ig,
@@ -102,14 +108,13 @@ function Crud () {
   return (
     <div className='ui hidden divider'>
       <Container>
-        <Grid>
-          <Grid.Row columns='2'>
+        <Segment>
+          <Grid columns={2} relaxed='very' stackable>
             <Grid.Column>
-              <Segment>
-                <Form>
-                  <Form.Field required>
-                    <label>First Name</label>
-                    <Input
+              <Form>
+                <Form.Field required>
+                  <label>First Name</label>
+                  <Input
                     required
                     placeholder='First Name'
                     focus
@@ -117,23 +122,11 @@ function Crud () {
                     onChange={e => {
                     setFirstName(e.target.value)
                   }}
-										/>
-                  </Form.Field>
-                  <Form.Field required>
-                    <label>Last Name</label>
-                    <Input
-                    required
-                    placeholder='Last Name'
-                    focus
-                    value={lastName}
-                    onChange={e => {
-                    setLastName(e.target.value)
-                  }}
-										/>
-                  </Form.Field>
-                  <Form.Field required>
-                    <label>Email</label>
-                    <Input
+									/>
+                </Form.Field>
+                <Form.Field required>
+                  <label>Email</label>
+                  <Input
                     required
                     placeholder='Email'
                     type='email'
@@ -142,11 +135,23 @@ function Crud () {
                     onChange={e => {
                     setEmail(e.target.value)
                   }}
-										/>
-                  </Form.Field>
-                  <Form.Field required>
-                    <label>Description</label>
-                    <TextArea
+									/>
+                </Form.Field>
+                <Form.Field required>
+                  <label>Position</label>
+                  <Input
+                    required
+                    placeholder='Position'
+                    focus
+                    value={position}
+                    onChange={e => {
+                    setPosition(e.target.value)
+                  }}
+									/>
+                </Form.Field>
+                <Form.Field required>
+                  <label>Description</label>
+                  <TextArea
                     required
                     placeholder='Tell us more'
                     style={{ minHeight: 50, maxHeight: 100 }}
@@ -154,74 +159,85 @@ function Crud () {
                     onChange={e => {
                     setDescription(e.target.value)
                   }}
-										/>
-                  </Form.Field>
-                  <Form.Field>
-                    <label>YouTube Link</label>
-                    <Input
+									/>
+                </Form.Field>
+                <Form.Field>
+                  <label>YouTube Link</label>
+                  <Input
                     placeholder='Your channel link'
                     focus
                     value={yt}
                     onChange={e => {
                     setYt(e.target.value)
                   }}
-										/>
-                  </Form.Field>
-                  <Form.Field>
-                    <label>Instagram Link</label>
-                    <Input
+									/>
+                </Form.Field>
+                <Form.Field>
+                  <label>Instagram Link</label>
+                  <Input
                     placeholder='Your profile link'
                     focus
                     value={ig}
                     onChange={e => {
                     setIg(e.target.value)
                   }}
-										/>
-                  </Form.Field>
-                  <Form.Field>
-                    <label>LinkedIn Link</label>
-                    <Input
+									/>
+                </Form.Field>
+                <Form.Field>
+                  <label>LinkedIn Link</label>
+                  <Input
                     placeholder='Your profile link'
                     focus
                     value={li}
                     onChange={e => {
                     setLi(e.target.value)
                   }}
-										/>
-                  </Form.Field>
-                  <Form.Field required>
-                    <label>Upload DP image</label>
-                    <Input
+									/>
+                </Form.Field>
+                <Form.Field required>
+                  <label>Upload DP image</label>
+                  <Input
                     required
                     type='file'
                     accept='image/*'
                     onChange={handleChange}
-										/>
-                  </Form.Field>
-                  <Form.Field required>
-                    <label>Upload Cover image</label>
-                    <Input
+									/>
+                </Form.Field>
+                <Form.Field required>
+                  <label>Upload Cover image</label>
+                  <Input
                     required
                     type='file'
                     accept='image/*'
                     onChange={handleChange1}
-										/>
-                  </Form.Field>
-                  <Form.Field>
-                    <Button
+									/>
+                </Form.Field>
+                <Form.Field>
+                  <Button
                     onClick={() => {
                     handleAddUser()
                   }}
                     positive
-										>
-											Add User
-										</Button>
-                  </Form.Field>
-                </Form>
-              </Segment>
+									>
+										Add User
+									</Button>
+                </Form.Field>
+              </Form>
             </Grid.Column>
-          </Grid.Row>
-        </Grid>
+            <Grid.Column verticalAlign='middle'>
+              <Card
+                name={firstName}
+                about={description}
+                job={position}
+                ytlink={yt}
+                iglink={ig}
+                lilink={li}
+                image={previewImage}
+                cover={previewSecondImage}
+							/>
+            </Grid.Column>
+          </Grid>
+        </Segment>
       </Container>
     </div>
   )
