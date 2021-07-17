@@ -36,16 +36,6 @@ function Crud () {
   const handleAddUser = () => {
     const storage = firebase.storage()
 
-    let dataDict = {
-      FirstName: firstName,
-      LastName: lastName,
-      Email: email,
-      Description: description,
-      Youtube: yt,
-      Instagram: ig,
-      LinkedIn: li
-    }
-
     if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       const uploadTask = storage.ref(`cover_img/${image.name}`).put(image)
       const uploadTask1 = storage
@@ -63,7 +53,17 @@ function Crud () {
 						.child(image.name)
 						.getDownloadURL()
 						.then(url => {
-  dataDict.Cover = url
+  firebase.firestore().collection('UserInfo').add({
+    FirstName: firstName,
+    LastName: lastName,
+    Email: email,
+    Description: description,
+    Youtube: yt,
+    Instagram: ig,
+    LinkedIn: li,
+    Cover: url,
+    DP: null
+  })
 })
 }
 			)
@@ -80,13 +80,23 @@ function Crud () {
 						.child(secondImage.name)
 						.getDownloadURL()
 						.then(url => {
-  dataDict.DP = url
+  firebase
+								.firestore()
+								.collection('UserInfo')
+								.where('Email', '==', email)
+								.get()
+								.then(querySnapshot => {
+  querySnapshot.forEach(doc => {
+    doc.ref.update({ DP: url })
+  })
+})
+								.catch(err => {
+  console.log(err)
+})
 })
 }
 			)
     }
-    console.log(dataDict)
-    firebase.firestore().collection('UserInfo').add(dataDict)
   }
 
   return (

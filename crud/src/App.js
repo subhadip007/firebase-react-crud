@@ -1,4 +1,4 @@
-import Crud from './crud'
+import Crud from './crudMultipleImg'
 
 function App () {
   return (
