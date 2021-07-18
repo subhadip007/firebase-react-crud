@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import firebase from './firebase'
+import firebase from '../firebase'
 import {
 	Button,
 	Container,
@@ -56,7 +56,7 @@ function Crud () {
   }
 
   return (
-    <div className='ui hidden divider'>
+    <div className='ui hidden divider crud'>
       <Container>
         <Grid>
           <Grid.Row columns='2'>

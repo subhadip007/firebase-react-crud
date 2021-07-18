@@ -1,30 +1,69 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import '../styles/Card.css'
+import prevImg from '../assets/portoflio_face.jpg'
+import prevCover from '../assets/portoflio_cover.jpg'
 
-function Card ({ name, about, job, ytlink, iglink, lilink, image, cover }) {
+function Card ({ name, about, job, email, iglink, lilink, image, cover }) {
+  let mail = 'mailto:' + email
+  let prevName = 'Enter name here'
+  let prevJob = 'Enter position here'
+  let prevDesc =
+		'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim.'
+
+  const [naame, setNaame] = useState(prevName)
+  const [joob, setJoob] = useState(prevJob)
+  const [desc, setDesc] = useState(prevDesc)
+  const [img, setImg] = useState(prevImg)
+  const [cov, setCov] = useState(prevCover)
+
+  useEffect(
+		() => {
+  if (name) {
+    setNaame(name)
+  }
+
+  if (job) {
+    setJoob(job)
+  }
+
+  if (about) {
+    setDesc(about)
+  }
+
+  if (image) {
+    setImg(image)
+  }
+
+  if (cover) {
+    setCov(cover)
+  }
+},
+		[name, job, about, image, cover]
+	)
+
   return (
     <div className='Card'>
       <div
         className='upper-container'
-        style={{ backgroundImage: `url(${cover})` }}
+        style={{ backgroundImage: `url(${cov})` }}
 			>
         <div className='image-container'>
-          <img src={image} alt='dp' height='100px' width='100px' />
+          <img src={img} alt='dp' height='100px' width='100px' />
         </div>
       </div>
       <div className='lower-container'>
         <h3>
-          {name}
+          {naame}
         </h3>
         <h4>
-          {job}
+          {joob}
         </h4>
         <p>
-          {about}
+          {desc}
         </p>
         <div className='socials'>
-          <a href={ytlink} target='_blank' rel='noreferrer'>
-            <i className='fab fa-youtube yt' />
+          <a href={mail} target='_blank' rel='noreferrer'>
+            <i class='far fa-envelope mail' />
           </a>
           <a href={iglink} target='_blank' rel='noreferrer'>
             <i className='fab fa-instagram ig' />

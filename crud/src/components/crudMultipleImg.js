@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import Card from './components/Card'
-import firebase from './firebase'
+import Card from './Card'
+import firebase from '../firebase'
+import '../styles/Crud.css'
 import {
 	Button,
 	Container,
@@ -19,7 +20,6 @@ function Crud () {
   const [email, setEmail] = useState('')
   const [position, setPosition] = useState('')
   const [description, setDescription] = useState('')
-  const [yt, setYt] = useState('')
   const [ig, setIg] = useState('')
   const [li, setLi] = useState('')
   const [image, setImage] = useState('')
@@ -64,7 +64,6 @@ function Crud () {
     Email: email,
     Position: position,
     Description: description,
-    Youtube: yt,
     Instagram: ig,
     LinkedIn: li,
     Cover: url,
@@ -106,17 +105,17 @@ function Crud () {
   }
 
   return (
-    <div className='ui hidden divider'>
-      <Container>
+    <div className='ui hidden'>
+      <Container className='crud'>
         <Segment>
-          <Grid columns={2} relaxed='very' stackable>
+          <Grid columns={2} centered stackable>
             <Grid.Column>
               <Form>
                 <Form.Field required>
-                  <label>First Name</label>
+                  <label>Name</label>
                   <Input
                     required
-                    placeholder='First Name'
+                    placeholder='Enter Name'
                     focus
                     value={firstName}
                     onChange={e => {
@@ -128,7 +127,7 @@ function Crud () {
                   <label>Email</label>
                   <Input
                     required
-                    placeholder='Email'
+                    placeholder='Enter Email'
                     type='email'
                     focus
                     value={email}
@@ -137,11 +136,33 @@ function Crud () {
                   }}
 									/>
                 </Form.Field>
+                <Form.Field>
+                  <label>Instagram Link</label>
+                  <Input
+                    placeholder='Enter profile link'
+                    focus
+                    value={ig}
+                    onChange={e => {
+                    setIg(e.target.value)
+                  }}
+									/>
+                </Form.Field>
+                <Form.Field>
+                  <label>LinkedIn Link</label>
+                  <Input
+                    placeholder='Enter profile link'
+                    focus
+                    value={li}
+                    onChange={e => {
+                    setLi(e.target.value)
+                  }}
+									/>
+                </Form.Field>
                 <Form.Field required>
                   <label>Position</label>
                   <Input
                     required
-                    placeholder='Position'
+                    placeholder='Enter Position'
                     focus
                     value={position}
                     onChange={e => {
@@ -153,6 +174,7 @@ function Crud () {
                   <label>Description</label>
                   <TextArea
                     required
+                    maxLength='140'
                     placeholder='Tell us more'
                     style={{ minHeight: 50, maxHeight: 100 }}
                     value={description}
@@ -161,39 +183,7 @@ function Crud () {
                   }}
 									/>
                 </Form.Field>
-                <Form.Field>
-                  <label>YouTube Link</label>
-                  <Input
-                    placeholder='Your channel link'
-                    focus
-                    value={yt}
-                    onChange={e => {
-                    setYt(e.target.value)
-                  }}
-									/>
-                </Form.Field>
-                <Form.Field>
-                  <label>Instagram Link</label>
-                  <Input
-                    placeholder='Your profile link'
-                    focus
-                    value={ig}
-                    onChange={e => {
-                    setIg(e.target.value)
-                  }}
-									/>
-                </Form.Field>
-                <Form.Field>
-                  <label>LinkedIn Link</label>
-                  <Input
-                    placeholder='Your profile link'
-                    focus
-                    value={li}
-                    onChange={e => {
-                    setLi(e.target.value)
-                  }}
-									/>
-                </Form.Field>
+
                 <Form.Field required>
                   <label>Upload DP image</label>
                   <Input
@@ -224,12 +214,12 @@ function Crud () {
                 </Form.Field>
               </Form>
             </Grid.Column>
-            <Grid.Column verticalAlign='middle'>
+            <Grid.Column>
               <Card
                 name={firstName}
                 about={description}
                 job={position}
-                ytlink={yt}
+                email={email}
                 iglink={ig}
                 lilink={li}
                 image={previewImage}
