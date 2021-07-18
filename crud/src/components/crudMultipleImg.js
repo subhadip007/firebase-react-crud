@@ -24,7 +24,8 @@ function Crud () {
   const [li, setLi] = useState('')
   const [image, setImage] = useState('')
   const [secondImage, setSecondImage] = useState('')
-
+  const [disable,setDisable]=useState(false)
+  
   const handleChange = e => {
     if (e.target.files[0]) {
       setImage(e.target.files[0])
@@ -102,6 +103,12 @@ function Crud () {
 }
 			)
     }
+
+    setDisable(true);
+    
+    setTimeout(() => {
+      setDisable(false);
+      }, 5000);
   }
 
   return (
@@ -207,6 +214,8 @@ function Crud () {
                     onClick={() => {
                     handleAddUser()
                   }}
+
+                  disabled={disable}
                     positive
 									>
 										Add User
