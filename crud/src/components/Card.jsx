@@ -63,7 +63,7 @@ function Card ({ name, about, job, email, iglink, lilink, image, cover }) {
         </p>
         <div className='socials'>
           <a href={mail} target='_blank' rel='noreferrer'>
-            <i class='far fa-envelope mail' />
+            <i className='far fa-envelope mail' />
           </a>
           <a href={iglink} target='_blank' rel='noreferrer'>
             <i className='fab fa-instagram ig' />

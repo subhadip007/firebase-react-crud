@@ -9,11 +9,33 @@ import {
 	Form,
 	Grid,
 	Input,
-	Segment
+	Segment,
+	Dropdown
 } from 'semantic-ui-react'
 
 let previewImage = ''
 let previewSecondImage = ''
+
+const tagOptions = [
+  {
+    key: 'Important',
+    text: 'Important',
+    value: 'Important',
+    label: { color: 'red', empty: true, circular: true }
+  },
+  {
+    key: 'Announcement',
+    text: 'Announcement',
+    value: 'Announcement',
+    label: { color: 'blue', empty: true, circular: true }
+  },
+  {
+    key: 'Cannot Fix',
+    text: 'Cannot Fix',
+    value: 'Cannot Fix',
+    label: { color: 'black', empty: true, circular: true }
+  }
+]
 
 function Crud () {
   const [firstName, setFirstName] = useState('')
@@ -24,8 +46,8 @@ function Crud () {
   const [li, setLi] = useState('')
   const [image, setImage] = useState('')
   const [secondImage, setSecondImage] = useState('')
-  const [disable,setDisable]=useState(false)
-  
+  const [disable, setDisable] = useState(false)
+
   const handleChange = e => {
     if (e.target.files[0]) {
       setImage(e.target.files[0])
@@ -104,11 +126,11 @@ function Crud () {
 			)
     }
 
-    setDisable(true);
-    
+    setDisable(true)
+
     setTimeout(() => {
-      setDisable(false);
-      }, 5000);
+      setDisable(false)
+    }, 5000)
   }
 
   return (
@@ -131,6 +153,33 @@ function Crud () {
 									/>
                 </Form.Field>
                 <Form.Field required>
+                  <label>Position</label>
+                  <Dropdown
+                    placeholder='Select Position'
+                    fluid
+                    selection
+                    search
+                    options={tagOptions}
+                    value={position}
+                    onChange={e => {
+                    setPosition(e.target.value)
+                  }}
+									/>
+                </Form.Field>
+                <Form.Field required>
+                  <label>Description</label>
+                  <TextArea
+                    required
+                    maxLength='140'
+                    placeholder='Tell us more'
+                    style={{ minHeight: 50, maxHeight: 100 }}
+                    value={description}
+                    onChange={e => {
+                    setDescription(e.target.value)
+                  }}
+									/>
+                </Form.Field>
+                <Form.Field required>
                   <label>Email</label>
                   <Input
                     required
@@ -141,6 +190,24 @@ function Crud () {
                     onChange={e => {
                     setEmail(e.target.value)
                   }}
+									/>
+                </Form.Field>
+                <Form.Field required>
+                  <label>Upload DP image</label>
+                  <Input
+                    required
+                    type='file'
+                    accept='image/*'
+                    onChange={handleChange}
+									/>
+                </Form.Field>
+                <Form.Field required>
+                  <label>Upload Cover image</label>
+                  <Input
+                    required
+                    type='file'
+                    accept='image/*'
+                    onChange={handleChange1}
 									/>
                 </Form.Field>
                 <Form.Field>
@@ -165,57 +232,12 @@ function Crud () {
                   }}
 									/>
                 </Form.Field>
-                <Form.Field required>
-                  <label>Position</label>
-                  <Input
-                    required
-                    placeholder='Enter Position'
-                    focus
-                    value={position}
-                    onChange={e => {
-                    setPosition(e.target.value)
-                  }}
-									/>
-                </Form.Field>
-                <Form.Field required>
-                  <label>Description</label>
-                  <TextArea
-                    required
-                    maxLength='140'
-                    placeholder='Tell us more'
-                    style={{ minHeight: 50, maxHeight: 100 }}
-                    value={description}
-                    onChange={e => {
-                    setDescription(e.target.value)
-                  }}
-									/>
-                </Form.Field>
-
-                <Form.Field required>
-                  <label>Upload DP image</label>
-                  <Input
-                    required
-                    type='file'
-                    accept='image/*'
-                    onChange={handleChange}
-									/>
-                </Form.Field>
-                <Form.Field required>
-                  <label>Upload Cover image</label>
-                  <Input
-                    required
-                    type='file'
-                    accept='image/*'
-                    onChange={handleChange1}
-									/>
-                </Form.Field>
                 <Form.Field>
                   <Button
                     onClick={() => {
                     handleAddUser()
                   }}
-
-                  disabled={disable}
+                    disabled={disable}
                     positive
 									>
 										Add User
