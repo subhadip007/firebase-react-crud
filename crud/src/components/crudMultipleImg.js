@@ -49,6 +49,7 @@ function Crud () {
   const [disable, setDisable] = useState(false)
 
   const handleChange = e => {
+    
     if (e.target.files[0]) {
       setImage(e.target.files[0])
       previewImage = URL.createObjectURL(e.target.files[0])
@@ -162,7 +163,8 @@ function Crud () {
                     options={tagOptions}
                     value={position}
                     onChange={e => {
-                    setPosition(e.target.value)
+                    setPosition(e.target.innerText)
+                    
                   }}
 									/>
                 </Form.Field>
