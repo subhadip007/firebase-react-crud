@@ -22,6 +22,7 @@ function Crud () {
   const [email, setEmail] = useState('')
   const [position, setPosition] = useState('')
   const [description, setDescription] = useState('')
+  const [passyear, setPassyear] = useState('')
   const [ig, setIg] = useState('')
   const [li, setLi] = useState('')
   const [image, setImage] = useState('')
@@ -65,6 +66,7 @@ function Crud () {
   firebase.firestore().collection('UserInfo').add({
     FirstName: firstName,
     Email: email,
+    PassoutYear: passyear,
     Position: position,
     Description: description,
     Instagram: ig,
@@ -170,6 +172,18 @@ function Crud () {
                     value={email}
                     onChange={e => {
                     setEmail(e.target.value)
+                  }}
+									/>
+                </Form.Field>
+                <Form.Field required>
+                  <label>Passout Year</label>
+                  <Input
+                    required
+                    placeholder='Enter Passing out year'
+                    focus
+                    value={passyear}
+                    onChange={e => {
+                    setPassyear(e.target.value)
                   }}
 									/>
                 </Form.Field>
