@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Card from './Card'
+import roles from './Roles'
 import firebase from '../firebase'
 import '../styles/Crud.css'
 import {
@@ -15,27 +16,6 @@ import {
 
 let previewImage = ''
 let previewSecondImage = ''
-
-const tagOptions = [
-  {
-    key: 'Important',
-    text: 'Important',
-    value: 'Important',
-    label: { color: 'red', empty: true, circular: true }
-  },
-  {
-    key: 'Announcement',
-    text: 'Announcement',
-    value: 'Announcement',
-    label: { color: 'blue', empty: true, circular: true }
-  },
-  {
-    key: 'Cannot Fix',
-    text: 'Cannot Fix',
-    value: 'Cannot Fix',
-    label: { color: 'black', empty: true, circular: true }
-  }
-]
 
 function Crud () {
   const [firstName, setFirstName] = useState('')
@@ -157,12 +137,13 @@ function Crud () {
                   <Dropdown
                     placeholder='Select Position'
                     fluid
+                    clearable
                     selection
                     search
-                    options={tagOptions}
+                    options={roles}
                     value={position}
                     onChange={e => {
-                    setPosition(e.target.value)
+                    setPosition(e.target.innerText)
                   }}
 									/>
                 </Form.Field>
