@@ -18,7 +18,6 @@ import {
 } from 'semantic-ui-react'
 
 let previewImage = ''
-let previewSecondImage = ''
 
 function Crud () {
   const [fullName, setFullName] = useState('')
@@ -203,7 +202,6 @@ function Crud () {
                 iglink={ig}
                 lilink={li}
                 image={previewImage}
-                cover={previewSecondImage}
 							/>
             </Grid.Column>
           </Grid>
