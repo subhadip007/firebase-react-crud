@@ -1,0 +1,25 @@
+.del {
+    position: absolute;
+    left: 50%;
+    top: 48%;
+    transform: translate(-50%, -50%);
+    padding: 10px;
+    background-color: rgb(62, 92, 190);
+}
+
+.card {
+    margin: auto;
+}
+
+.add {
+    background: rgb(255, 56, 95);
+}
+
+@media only screen and (max-width: 600px) {
+    .crud {
+        left: 0;
+        top: 0;
+        transform: translate(0, 0);
+        padding: 0;
+    }
+}

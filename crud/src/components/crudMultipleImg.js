@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import Card from './Card'
 import roles from './Roles'
+import batches from './Batches'
 import firebase from '../firebase'
 import '../styles/Crud.css'
 import {
@@ -11,7 +13,8 @@ import {
 	Grid,
 	Input,
 	Segment,
-	Dropdown
+	Dropdown,
+	Icon
 } from 'semantic-ui-react'
 
 let previewImage = ''
@@ -177,13 +180,16 @@ function Crud () {
                 </Form.Field>
                 <Form.Field required>
                   <label>Passout Year</label>
-                  <Input
-                    required
-                    placeholder='Enter Passing out year'
-                    focus
+                  <Dropdown
+                    placeholder='Batch Delete selected year'
+                    fluid
+                    clearable
+                    selection
+                    search
+                    options={batches}
                     value={passyear}
                     onChange={e => {
-                    setPassyear(e.target.value)
+                    setPassyear(e.target.innerText)
                   }}
 									/>
                 </Form.Field>
@@ -229,14 +235,23 @@ function Crud () {
                 </Form.Field>
                 <Form.Field>
                   <Button
+                    icon
+                    labelPosition='left'
                     onClick={() => {
                     handleAddUser()
                   }}
                     disabled={disable}
                     positive
 									>
+                    <Icon name='user plus' />
 										Add User
 									</Button>
+                  <Link to='/delete'>
+                    <Button icon labelPosition='left' negative>
+                    <Icon name='trash alternate outline' />
+											Delete Users
+										</Button>
+                  </Link>
                 </Form.Field>
               </Form>
             </Grid.Column>
