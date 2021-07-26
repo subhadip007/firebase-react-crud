@@ -21,7 +21,7 @@ let previewImage = ''
 let previewSecondImage = ''
 
 function Crud () {
-  const [firstName, setFirstName] = useState('')
+  const [fullName, setFullName] = useState('')
   const [email, setEmail] = useState('')
   const [position, setPosition] = useState('')
   const [description, setDescription] = useState('')
@@ -29,8 +29,6 @@ function Crud () {
   const [ig, setIg] = useState('')
   const [li, setLi] = useState('')
   const [image, setImage] = useState('')
-  const [secondImage, setSecondImage] = useState('')
-  const [disable, setDisable] = useState(false)
 
   const handleChange = e => {
     if (e.target.files[0]) {
@@ -39,21 +37,11 @@ function Crud () {
     }
   }
 
-  const handleChange1 = e => {
-    if (e.target.files[0]) {
-      setSecondImage(e.target.files[0])
-      previewSecondImage = URL.createObjectURL(e.target.files[0])
-    }
-  }
-
   const handleAddUser = () => {
     const storage = firebase.storage()
 
     if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      const uploadTask = storage.ref(`cover_img/${image.name}`).put(image)
-      const uploadTask1 = storage
-				.ref(`dp_img/${secondImage.name}`)
-				.put(secondImage)
+      const uploadTask = storage.ref(`dp_img/${image.name}`).put(image)
       uploadTask.on(
 				'state_changed',
 				snapshot => {},
@@ -61,61 +49,21 @@ function Crud () {
   console.log(error)
 },
 				() => {
-  storage
-						.ref('cover_img')
-						.child(image.name)
-						.getDownloadURL()
-						.then(url => {
-  firebase.firestore().collection('UserInfo').add({
-    FirstName: firstName,
-    Email: email,
-    PassoutYear: passyear,
-    Position: position,
-    Description: description,
-    Instagram: ig,
-    LinkedIn: li,
-    Cover: url,
-    DP: null
+  storage.ref('dp_img').child(image.name).getDownloadURL().then(url => {
+    firebase.firestore().collection('UserInfo').add({
+      FullName: fullName,
+      Email: email,
+      PassoutYear: passyear,
+      Position: position,
+      Description: description,
+      Instagram: ig,
+      LinkedIn: li,
+      DP: url
+    })
   })
-})
-}
-			)
-
-      uploadTask1.on(
-				'state_changed',
-				snapshot => {},
-				error => {
-  console.log(error)
-},
-				() => {
-  storage
-						.ref('dp_img')
-						.child(secondImage.name)
-						.getDownloadURL()
-						.then(url => {
-  firebase
-								.firestore()
-								.collection('UserInfo')
-								.where('Email', '==', email)
-								.get()
-								.then(querySnapshot => {
-  querySnapshot.forEach(doc => {
-    doc.ref.update({ DP: url })
-  })
-})
-								.catch(err => {
-  console.log(err)
-})
-})
 }
 			)
     }
-
-    setDisable(true)
-
-    setTimeout(() => {
-      setDisable(false)
-    }, 5000)
   }
 
   return (
@@ -131,9 +79,9 @@ function Crud () {
                     required
                     placeholder='Enter Name'
                     focus
-                    value={firstName}
+                    value={fullName}
                     onChange={e => {
-                    setFirstName(e.target.value)
+                    setFullName(e.target.value)
                   }}
 									/>
                 </Form.Field>
@@ -202,15 +150,7 @@ function Crud () {
                     onChange={handleChange}
 									/>
                 </Form.Field>
-                <Form.Field required>
-                  <label>Upload Cover image</label>
-                  <Input
-                    required
-                    type='file'
-                    accept='image/*'
-                    onChange={handleChange1}
-									/>
-                </Form.Field>
+
                 <Form.Field>
                   <label>Instagram Link</label>
                   <Input
@@ -240,7 +180,6 @@ function Crud () {
                     onClick={() => {
                     handleAddUser()
                   }}
-                    disabled={disable}
                     positive
 									>
                     <Icon name='user plus' />
@@ -248,8 +187,8 @@ function Crud () {
 									</Button>
                   <Link to='/delete'>
                     <Button icon labelPosition='left' negative>
-                    <Icon name='trash alternate outline' />
-											Delete Users
+                    <Icon name='external alternate' />
+											Batch Delete
 										</Button>
                   </Link>
                 </Form.Field>
@@ -257,7 +196,7 @@ function Crud () {
             </Grid.Column>
             <Grid.Column>
               <Card
-                name={firstName}
+                name={fullName}
                 about={description}
                 job={position}
                 email={email}

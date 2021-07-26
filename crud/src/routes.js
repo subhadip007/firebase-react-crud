@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
-import Crud from './components/crudMultipleImg'
+import Crud from './components/crudMultipleImg.jsx'
 import DelBatch from './components/delBatch'
 
 function Routes () {

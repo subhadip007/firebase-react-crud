@@ -33,6 +33,7 @@ function DelBatch () {
     } else {
       alert('Please select a year')
     }
+    setYear('')
   }
 
   return (
@@ -50,6 +51,7 @@ function DelBatch () {
                     clearable
                     selection
                     search
+                    required
                     options={batches}
                     value={year}
                     onChange={e => {
