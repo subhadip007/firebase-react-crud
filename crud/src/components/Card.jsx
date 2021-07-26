@@ -45,7 +45,7 @@ function Card ({ name, about, job, email, iglink, lilink, image, cover }) {
     <div className='Card'>
       <div
         className='upper-container'
-        style={{ backgroundImage: `url(${cov})` }}
+        style={{ backgroundImage: `url(${cov})`, backgroundSize: 'cover' }}
 			>
         <div className='image-container'>
           <img src={img} alt='dp' height='100px' width='100px' />

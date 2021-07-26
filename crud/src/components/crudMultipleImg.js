@@ -1,5 +1,8 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import Card from './Card'
+import roles from './Roles'
+import batches from './Batches'
 import firebase from '../firebase'
 import '../styles/Crud.css'
 import {
@@ -10,38 +13,19 @@ import {
 	Grid,
 	Input,
 	Segment,
-	Dropdown
+	Dropdown,
+	Icon
 } from 'semantic-ui-react'
 
 let previewImage = ''
 let previewSecondImage = ''
-
-const tagOptions = [
-  {
-    key: 'Important',
-    text: 'Important',
-    value: 'Important',
-    label: { color: 'red', empty: true, circular: true }
-  },
-  {
-    key: 'Announcement',
-    text: 'Announcement',
-    value: 'Announcement',
-    label: { color: 'blue', empty: true, circular: true }
-  },
-  {
-    key: 'Cannot Fix',
-    text: 'Cannot Fix',
-    value: 'Cannot Fix',
-    label: { color: 'black', empty: true, circular: true }
-  }
-]
 
 function Crud () {
   const [firstName, setFirstName] = useState('')
   const [email, setEmail] = useState('')
   const [position, setPosition] = useState('')
   const [description, setDescription] = useState('')
+  const [passyear, setPassyear] = useState('')
   const [ig, setIg] = useState('')
   const [li, setLi] = useState('')
   const [image, setImage] = useState('')
@@ -86,6 +70,7 @@ function Crud () {
   firebase.firestore().collection('UserInfo').add({
     FirstName: firstName,
     Email: email,
+    PassoutYear: passyear,
     Position: position,
     Description: description,
     Instagram: ig,
@@ -158,13 +143,13 @@ function Crud () {
                   <Dropdown
                     placeholder='Select Position'
                     fluid
+                    clearable
                     selection
                     search
-                    options={tagOptions}
+                    options={roles}
                     value={position}
                     onChange={e => {
                     setPosition(e.target.innerText)
-                    
                   }}
 									/>
                 </Form.Field>
@@ -191,6 +176,21 @@ function Crud () {
                     value={email}
                     onChange={e => {
                     setEmail(e.target.value)
+                  }}
+									/>
+                </Form.Field>
+                <Form.Field required>
+                  <label>Passout Year</label>
+                  <Dropdown
+                    placeholder='Batch Delete selected year'
+                    fluid
+                    clearable
+                    selection
+                    search
+                    options={batches}
+                    value={passyear}
+                    onChange={e => {
+                    setPassyear(e.target.innerText)
                   }}
 									/>
                 </Form.Field>
@@ -236,14 +236,23 @@ function Crud () {
                 </Form.Field>
                 <Form.Field>
                   <Button
+                    icon
+                    labelPosition='left'
                     onClick={() => {
                     handleAddUser()
                   }}
                     disabled={disable}
                     positive
 									>
+                    <Icon name='user plus' />
 										Add User
 									</Button>
+                  <Link to='/delete'>
+                    <Button icon labelPosition='left' negative>
+                    <Icon name='trash alternate outline' />
+											Delete Users
+										</Button>
+                  </Link>
                 </Form.Field>
               </Form>
             </Grid.Column>

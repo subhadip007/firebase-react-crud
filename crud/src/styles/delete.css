@@ -1,4 +1,4 @@
-.crud{
+.del {
     position: absolute;
     left: 50%;
     top: 48%;
@@ -7,16 +7,16 @@
     background-color: rgb(62, 92, 190);
 }
 
-.card{
+.card {
     margin: auto;
 }
 
-.add{
+.add {
     background: rgb(255, 56, 95);
 }
 
 @media only screen and (max-width: 600px) {
-    .crud{
+    .crud {
         left: 0;
         top: 0;
         transform: translate(0, 0);
