@@ -17,6 +17,7 @@ import {
 function DelBatch () {
   const [year, setYear] = useState('')
   const [open, setOpen] = useState(false)
+  const storage = firebase.storage()
 
   const delUser = () => {
     if (year) {
@@ -27,11 +28,19 @@ function DelBatch () {
 				.get()
 				.then(docs => {
   docs.forEach(doc => {
-    doc.ref.delete()
+    let imgRef = storage.refFromURL(doc.data().DP)
+    imgRef
+							.delete()
+							.then(() => {
+  doc.ref.delete()
+})
+							.catch(err => {
+  console.log(err)
+})
   })
 })
     } else {
-      alert('Please select a year')
+      alert('Please select a year.')
     }
     setYear('')
   }

@@ -4,6 +4,7 @@ import Card from './Card'
 import roles from './Roles'
 import batches from './Batches'
 import firebase from '../firebase'
+import { v4 as uuidv4 } from 'uuid'
 import '../styles/Crud.css'
 import {
 	Button,
@@ -40,7 +41,8 @@ function Crud () {
     const storage = firebase.storage()
 
     if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      const uploadTask = storage.ref(`dp_img/${image.name}`).put(image)
+      let uuid = uuidv4()
+      const uploadTask = storage.ref(`dp_img/${uuid}`).put(image)
       uploadTask.on(
 				'state_changed',
 				snapshot => {},
@@ -48,7 +50,7 @@ function Crud () {
   console.log(error)
 },
 				() => {
-  storage.ref('dp_img').child(image.name).getDownloadURL().then(url => {
+  storage.ref('dp_img').child(uuid).getDownloadURL().then(url => {
     firebase.firestore().collection('UserInfo').add({
       FullName: fullName,
       Email: email,
