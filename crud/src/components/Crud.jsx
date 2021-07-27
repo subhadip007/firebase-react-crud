@@ -174,7 +174,7 @@ function Crud () {
                   }}
 									/>
                 </Form.Field>
-                <Form.Field>
+                <Form.Field id='utility'>
                   <Button
                     icon
                     labelPosition='left'
@@ -186,7 +186,13 @@ function Crud () {
                     <Icon name='user plus' />
 										Add User
 									</Button>
-                  <Link to='/delete'>
+                  <Link id='util' to='/update'>
+                    <Button icon labelPosition='left' primary>
+                    <Icon name='edit' />
+											Update User
+										</Button>
+                  </Link>
+                  <Link id='util' to='/delete'>
                     <Button icon labelPosition='left' negative>
                     <Icon name='external alternate' />
 											Batch Delete

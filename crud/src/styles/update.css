@@ -1,4 +1,4 @@
-.crud{
+.upd {
     position: absolute;
     left: 50%;
     top: 48%;
@@ -7,24 +7,28 @@
     background-color: rgb(62, 92, 190);
 }
 
-.crud #util{
-    margin: 0;
-}
-.crud #utility {
-   margin-top: 1.5rem;
-}
-
-
-.card{
+.upd #card {
     margin: auto;
 }
 
-.add{
-    background: rgb(255, 56, 95);
+#dataObject{
+    margin-right: 1.5rem;
+}
+
+.upd #persons{
+    margin-bottom: 1.5rem;
+}
+
+.upd #search{
+    margin-bottom: 1.5rem;
+}
+
+.upd #util{
+    margin: 0;
 }
 
 @media only screen and (max-width: 600px) {
-    .crud{
+    .crud {
         left: 0;
         top: 0;
         transform: translate(0, 0);
