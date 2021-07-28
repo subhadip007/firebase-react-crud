@@ -7,6 +7,10 @@
     background-color: rgb(62, 92, 190);
 }
 
+.del #reply{
+    margin: 0;
+}
+
 .card {
     margin: auto;
 }

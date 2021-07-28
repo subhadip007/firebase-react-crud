@@ -111,7 +111,7 @@ function DelBatch () {
 											/>
                   </Modal.Actions>
                   </Modal>
-                  <Link to='/'>
+                  <Link id='reply' to='/'>
                     <Button icon labelPosition='left' positive>
                     <Icon name='reply' />
 											Go back
