@@ -151,7 +151,6 @@ function Crud () {
                     onChange={handleChange}
 									/>
                 </Form.Field>
-
                 <Form.Field>
                   <label>Instagram Link</label>
                   <Input
