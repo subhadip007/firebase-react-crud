@@ -54,7 +54,7 @@ function ReadDelete () {
               {persons
 								.filter(val => {
   if (search === '') {
-    return null
+    return val
   } else if (
 										val.FullName.toLowerCase().includes(search.toLowerCase())
 									) {

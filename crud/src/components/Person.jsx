@@ -41,8 +41,6 @@ function Person (props) {
   setPassyear(user.PassoutYear)
   setIg(user.Instagram)
   setLi(user.LinkedIn)
-  setOpenfirst(user.OpenFirst)
-  setOpensecond(user.OpenSecond)
 })
   }
 
@@ -68,11 +66,12 @@ function Person (props) {
 },
 							() => {
   storage.ref('dp_img').child(uuid).getDownloadURL().then(url => {
-    firebase
-										.firestore()
-										.collection('UserInfo')
-										.doc(userRef)
-										.update({
+    if (image != null) {
+      firebase
+											.firestore()
+											.collection('UserInfo')
+											.doc(userRef)
+											.update({
   FullName: fullName,
   Email: email,
   Position: position,
@@ -82,6 +81,21 @@ function Person (props) {
   LinkedIn: li,
   DP: url
 })
+    } else {
+      firebase
+											.firestore()
+											.collection('UserInfo')
+											.doc(userRef)
+											.update({
+  FullName: fullName,
+  Email: email,
+  Position: position,
+  Description: description,
+  PassoutYear: passyear,
+  Instagram: ig,
+  LinkedIn: li
+})
+    }
   })
 }
 						)
