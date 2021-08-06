@@ -17,6 +17,7 @@ import {
 function DelBatch () {
   const [year, setYear] = useState('')
   const [open, setOpen] = useState(false)
+  const storage = firebase.storage()
 
   const delUser = () => {
     if (year) {
@@ -27,12 +28,21 @@ function DelBatch () {
 				.get()
 				.then(docs => {
   docs.forEach(doc => {
-    doc.ref.delete()
+    let imgRef = storage.refFromURL(doc.data().DP)
+    imgRef
+							.delete()
+							.then(() => {
+  doc.ref.delete()
+})
+							.catch(err => {
+  console.log(err)
+})
   })
 })
     } else {
-      alert('Please select a year')
+      alert('Please select a year.')
     }
+    setYear('')
   }
 
   return (
@@ -50,6 +60,7 @@ function DelBatch () {
                     clearable
                     selection
                     search
+                    required
                     options={batches}
                     value={year}
                     onChange={e => {
@@ -100,7 +111,7 @@ function DelBatch () {
 											/>
                   </Modal.Actions>
                   </Modal>
-                  <Link to='/'>
+                  <Link id='reply' to='/'>
                     <Button icon labelPosition='left' positive>
                     <Icon name='reply' />
 											Go back

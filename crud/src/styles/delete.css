@@ -7,6 +7,13 @@
     background-color: rgb(62, 92, 190);
 }
 
+<<<<<<< HEAD
+=======
+.del #reply{
+    margin: 0;
+}
+
+>>>>>>> 95a94a0fc2986d27f2bb92eaf0bb39d3f477fcba
 .card {
     margin: auto;
 }

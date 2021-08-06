@@ -7,6 +7,14 @@
     background-color: rgb(62, 92, 190);
 }
 
+.crud #util{
+    margin: 0;
+}
+.crud #utility {
+   margin-top: 1.5rem;
+}
+
+
 .card{
     margin: auto;
 }
